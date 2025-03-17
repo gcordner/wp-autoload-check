@@ -23,14 +23,14 @@
 class Wp_Autoload_Check_Activator {
 
 	/**
-	 * Short Description. (use period)
+	 * Code to run on plugin activation.
 	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
 	 */
 	public static function activate() {
-
+		// Schedule the cron event if it's not already scheduled.
+		if ( ! wp_next_scheduled( 'wp_autoload_check_cron_hook' ) ) {
+			wp_schedule_event( time(), 'hourly', 'wp_autoload_check_cron_hook' );
+		}
 	}
-
 }

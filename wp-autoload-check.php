@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -65,6 +64,12 @@ register_deactivation_hook( __FILE__, 'deactivate_wp_autoload_check' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-wp-autoload-check.php';
 
 /**
+ * The monitor class for the autoload check.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/class-wp-autoload-check-monitor.php';
+
+
+/**
  * Begins execution of the plugin.
  *
  * Since everything within the plugin is registered via hooks,
@@ -77,6 +82,5 @@ function run_wp_autoload_check() {
 
 	$plugin = new Wp_Autoload_Check();
 	$plugin->run();
-
 }
 run_wp_autoload_check();
