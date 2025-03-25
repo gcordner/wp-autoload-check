@@ -76,7 +76,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-autoload-check-monitor.
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.0
+ * @since    1.0.0.1
  */
 function run_wp_autoload_check() {
 
