@@ -103,8 +103,8 @@ class Plk_Autoload_Check_Admin {
 		}
 
 		// Register the settings (for use on the settings page).
-		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_email' );
-		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_threshold' );
+		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_email', 'sanitize_email' );
+		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_threshold', array( $this, 'sanitize_threshold' ) );
 
 		add_settings_section(
 			'plk_autoload_check_main_section',
@@ -128,6 +128,14 @@ class Plk_Autoload_Check_Admin {
 			'plk-autoload-check',
 			'plk_autoload_check_main_section'
 		);
+	}
+
+	/**
+	 * Sanitize the threshold value — must be a positive number.
+	 */
+	public function sanitize_threshold( $value ) {
+		$value = (float) $value;
+		return $value > 0 ? $value : 0.3;
 	}
 
 	/**
