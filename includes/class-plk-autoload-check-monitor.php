@@ -46,32 +46,24 @@ class Plk_Autoload_Check_Monitor {
 
 
 	/**
-	 * Execute the autoload check and send an email if needed.
+	 * Execute the autoload check and send an email if the threshold is exceeded.
 	 */
 	public function run() {
 		global $wpdb;
-		/* phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery */
-		delete_transient( 'autoload_size_alert' ); // Delete the transient for testing purposes.
 
 		// Calculate the total autoload size in MB.
-		$autoload_size = $wpdb->get_var(
-			"SELECT ROUND(SUM(LENGTH(option_value)) / (1024 * 1024), 2) AS total_autoload_mb 
-             FROM $wpdb->options 
+		$autoload_size = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+			"SELECT ROUND(SUM(LENGTH(option_value)) / (1024 * 1024), 2) AS total_autoload_mb
+             FROM $wpdb->options
              WHERE autoload = 'yes' OR autoload = 'on'"
 		);
 
-		// If the autoload size exceeds the threshold, send an alert.
 		if ( $autoload_size > $this->threshold ) {
-			// Check if an alert has been sent recently (limit to 1 email per hour).
-			if ( ! get_transient( 'autoload_size_alert' ) ) {
-				$subject = 'WordPress Autoload Size Alert';
-				$message = "The autoload size is currently {$autoload_size} MB.";
-				$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+			$subject = 'WordPress Autoload Size Alert';
+			$message = "The autoload size is currently {$autoload_size} MB.";
+			$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
-				wp_mail( $this->admin_email, $subject, $message, $headers );
-				// Set a transient to avoid sending another email within an hour.
-				set_transient( 'autoload_size_alert', true, HOUR_IN_SECONDS );
-			}
+			wp_mail( $this->admin_email, $subject, $message, $headers );
 		}
 	}
 }
