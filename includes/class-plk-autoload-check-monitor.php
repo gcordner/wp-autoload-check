@@ -59,9 +59,11 @@ class Plk_Autoload_Check_Monitor {
 		);
 
 		if ( $autoload_size > $this->threshold ) {
-			$subject = 'WordPress Autoload Size Alert';
-			$message = "The autoload size is currently {$autoload_size} MB.";
-			$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+			$site_name = get_bloginfo( 'name' );
+			$site_url  = get_bloginfo( 'url' );
+			$subject   = "Autoload Size Alert: {$site_name}";
+			$message   = "Autoload size on <a href=\"{$site_url}\">{$site_name}</a> ({$site_url}) is currently {$autoload_size} MB.";
+			$headers   = array( 'Content-Type: text/html; charset=UTF-8' );
 
 			wp_mail( $this->admin_email, $subject, $message, $headers );
 		}
