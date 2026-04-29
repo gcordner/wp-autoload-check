@@ -93,15 +93,6 @@ class Plk_Autoload_Check_Admin {
 	 * them with the autoload parameter set to "no".
 	 */
 	public function register_settings() {
-		// Ensure the email option is added with autoload "no" if it doesn't exist.
-		if ( false === get_option( 'plk_autoload_check_email' ) ) {
-			add_option( 'plk_autoload_check_email', get_option( 'admin_email' ), '', 'no' );
-		}
-		// Ensure the threshold option is added with autoload "no" if it doesn't exist.
-		if ( false === get_option( 'plk_autoload_check_threshold' ) ) {
-			add_option( 'plk_autoload_check_threshold', 0.3, '', 'no' );
-		}
-
 		// Register the settings (for use on the settings page).
 		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_email', 'sanitize_email' );
 		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_threshold', array( $this, 'sanitize_threshold' ) );

@@ -28,9 +28,16 @@ class Plk_Autoload_Check_Activator {
 	 * @since 1.0.0
 	 */
 	public static function activate() {
-		// Schedule the cron event if it's not already scheduled.
 		if ( ! wp_next_scheduled( 'plk_autoload_check_cron_hook' ) ) {
 			wp_schedule_event( time(), 'hourly', 'plk_autoload_check_cron_hook' );
+		}
+
+		if ( false === get_option( 'plk_autoload_check_email' ) ) {
+			add_option( 'plk_autoload_check_email', get_option( 'admin_email' ), '', 'no' );
+		}
+
+		if ( false === get_option( 'plk_autoload_check_threshold' ) ) {
+			add_option( 'plk_autoload_check_threshold', 0.3, '', 'no' );
 		}
 	}
 }

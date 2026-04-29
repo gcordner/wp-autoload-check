@@ -29,3 +29,7 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+delete_option( 'plk_autoload_check_email' );
+delete_option( 'plk_autoload_check_threshold' );
+wp_clear_scheduled_hook( 'plk_autoload_check_cron_hook' );
