@@ -6,8 +6,8 @@
  * @link       https://geoffcordner.net
  * @since      1.0.0
  *
- * @package    Wp_Autoload_Check
- * @subpackage Wp_Autoload_Check/includes
+ * @package    Plk_Autoload_Check
+ * @subpackage Plk_Autoload_Check/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Wp_Autoload_Check
- * @subpackage Wp_Autoload_Check/includes
+ * @package    Plk_Autoload_Check
+ * @subpackage Plk_Autoload_Check/includes
  * @author     Geoff Cordner <geoffcordner@gmail.com>
  */
-class Wp_Autoload_Check_Deactivator {
+class Plk_Autoload_Check_Deactivator {
 
 	/**
 	 * Short Description. (use period)

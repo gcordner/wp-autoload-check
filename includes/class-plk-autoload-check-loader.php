@@ -6,8 +6,8 @@
  * @link       https://geoffcordner.net
  * @since      1.0.0
  *
- * @package    Wp_Autoload_Check
- * @subpackage Wp_Autoload_Check/includes
+ * @package    Plk_Autoload_Check
+ * @subpackage Plk_Autoload_Check/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Wp_Autoload_Check
- * @subpackage Wp_Autoload_Check/includes
+ * @package    Plk_Autoload_Check
+ * @subpackage Plk_Autoload_Check/includes
  * @author     Geoff Cordner <geoffcordner@gmail.com>
  */
-class Wp_Autoload_Check_Loader {
+class Plk_Autoload_Check_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

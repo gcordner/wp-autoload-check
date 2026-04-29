@@ -5,8 +5,8 @@
  * @link       https://geoffcordner.net
  * @since      1.0.0
  *
- * @package    Wp_Autoload_Check
- * @subpackage Wp_Autoload_Check/admin
+ * @package    Plk_Autoload_Check
+ * @subpackage Plk_Autoload_Check/admin
  */
 
 /**
@@ -15,11 +15,11 @@
  * Defines the plugin name, version, and two example hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Wp_Autoload_Check
- * @subpackage Wp_Autoload_Check/admin
+ * @package    Plk_Autoload_Check
+ * @subpackage Plk_Autoload_Check/admin
  * @author     Geoff Cordner
  */
-class Wp_Autoload_Check_Admin {
+class Plk_Autoload_Check_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -46,7 +46,7 @@ class Wp_Autoload_Check_Admin {
 	 * @param    string $plugin_name The name of this plugin.
 	 * @param    string $version     The version of this plugin.
 	 */
-	public function __construct( $plugin_name = 'wp-autoload-check', $version = '1.0.0' ) {
+	public function __construct( $plugin_name = 'plk-autoload-check', $version = '1.0.0' ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
@@ -61,7 +61,7 @@ class Wp_Autoload_Check_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-autoload-check-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/plk-autoload-check-admin.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Wp_Autoload_Check_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-autoload-check-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/plk-autoload-check-admin.js', array( 'jquery' ), $this->version, false );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Wp_Autoload_Check_Admin {
 			'Autoload Monitor Settings',
 			'Autoload Monitor',
 			'manage_options',
-			'wp-autoload-check',
+			'plk-autoload-check',
 			array( $this, 'settings_page_callback' )
 		);
 	}
@@ -94,39 +94,39 @@ class Wp_Autoload_Check_Admin {
 	 */
 	public function register_settings() {
 		// Ensure the email option is added with autoload "no" if it doesn't exist.
-		if ( false === get_option( 'wp_autoload_check_email' ) ) {
-			add_option( 'wp_autoload_check_email', get_option( 'admin_email' ), '', 'no' );
+		if ( false === get_option( 'plk_autoload_check_email' ) ) {
+			add_option( 'plk_autoload_check_email', get_option( 'admin_email' ), '', 'no' );
 		}
 		// Ensure the threshold option is added with autoload "no" if it doesn't exist.
-		if ( false === get_option( 'wp_autoload_check_threshold' ) ) {
-			add_option( 'wp_autoload_check_threshold', 0.3, '', 'no' );
+		if ( false === get_option( 'plk_autoload_check_threshold' ) ) {
+			add_option( 'plk_autoload_check_threshold', 0.3, '', 'no' );
 		}
 
 		// Register the settings (for use on the settings page).
-		register_setting( 'wp_autoload_check_settings', 'wp_autoload_check_email' );
-		register_setting( 'wp_autoload_check_settings', 'wp_autoload_check_threshold' );
+		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_email' );
+		register_setting( 'plk_autoload_check_settings', 'plk_autoload_check_threshold' );
 
 		add_settings_section(
-			'wp_autoload_check_main_section',
+			'plk_autoload_check_main_section',
 			'Autoload Check Settings',
 			null,
-			'wp-autoload-check'
+			'plk-autoload-check'
 		);
 
 		add_settings_field(
-			'wp_autoload_check_email',
+			'plk_autoload_check_email',
 			'Admin Email for Alerts',
 			array( $this, 'email_field_callback' ),
-			'wp-autoload-check',
-			'wp_autoload_check_main_section'
+			'plk-autoload-check',
+			'plk_autoload_check_main_section'
 		);
 
 		add_settings_field(
-			'wp_autoload_check_threshold',
+			'plk_autoload_check_threshold',
 			'Autoload Size Threshold (MB)',
 			array( $this, 'threshold_field_callback' ),
-			'wp-autoload-check',
-			'wp_autoload_check_main_section'
+			'plk-autoload-check',
+			'plk_autoload_check_main_section'
 		);
 	}
 
@@ -134,16 +134,16 @@ class Wp_Autoload_Check_Admin {
 	 * Email field callback.
 	 */
 	public function email_field_callback() {
-		$email = get_option( 'wp_autoload_check_email', get_option( 'admin_email' ) );
-		echo '<input type="email" name="wp_autoload_check_email" value="' . esc_attr( $email ) . '" />';
+		$email = get_option( 'plk_autoload_check_email', get_option( 'admin_email' ) );
+		echo '<input type="email" name="plk_autoload_check_email" value="' . esc_attr( $email ) . '" />';
 	}
 
 	/**
 	 * Threshold field callback.
 	 */
 	public function threshold_field_callback() {
-		$threshold = get_option( 'wp_autoload_check_threshold', 0.3 );
-		echo '<input type="number" step="0.01" name="wp_autoload_check_threshold" value="' . esc_attr( $threshold ) . '" />';
+		$threshold = get_option( 'plk_autoload_check_threshold', 0.3 );
+		echo '<input type="number" step="0.01" name="plk_autoload_check_threshold" value="' . esc_attr( $threshold ) . '" />';
 	}
 
 	/**
@@ -155,8 +155,8 @@ class Wp_Autoload_Check_Admin {
 			<h1>Autoload Monitor Settings</h1>
 			<form method="post" action="options.php">
 				<?php
-				settings_fields( 'wp_autoload_check_settings' );
-				do_settings_sections( 'wp-autoload-check' );
+				settings_fields( 'plk_autoload_check_settings' );
+				do_settings_sections( 'plk-autoload-check' );
 				submit_button();
 				?>
 			</form>

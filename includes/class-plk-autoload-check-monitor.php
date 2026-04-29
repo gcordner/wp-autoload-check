@@ -17,7 +17,7 @@
 /**
  * Monitor the autoload size and send an email alert if it exceeds a threshold.
  */
-class Wp_Autoload_Check_Monitor {
+class Plk_Autoload_Check_Monitor {
 
 	/**
 	 * Threshold for the autoload size in MB.
@@ -38,10 +38,10 @@ class Wp_Autoload_Check_Monitor {
 	 */
 	public function __construct() {
 		// Get the threshold option with a fallback default of 0.3 MB.
-		$this->threshold = get_option( 'wp_autoload_check_threshold', 0.3 );
+		$this->threshold = get_option( 'plk_autoload_check_threshold', 0.3 );
 
 		// Get the admin email option with a fallback default of the site's admin email.
-		$this->admin_email = get_option( 'wp_autoload_check_email', get_option( 'admin_email' ) );
+		$this->admin_email = get_option( 'plk_autoload_check_email', get_option( 'admin_email' ) );
 	}
 
 
@@ -82,9 +82,9 @@ class Wp_Autoload_Check_Monitor {
  * This ensures that when your cron event fires, the autoload size is checked.
  */
 add_action(
-	'wp_autoload_check_cron_hook',
+	'plk_autoload_check_cron_hook',
 	function () {
-		$monitor = new Wp_Autoload_Check_Monitor();
+		$monitor = new Plk_Autoload_Check_Monitor();
 		$monitor->run();
 	}
 );

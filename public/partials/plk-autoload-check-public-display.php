@@ -8,8 +8,8 @@
  * @link       https://geoffcordner.net
  * @since      1.0.0
  *
- * @package    Wp_Autoload_Check
- * @subpackage Wp_Autoload_Check/public/partials
+ * @package    Plk_Autoload_Check
+ * @subpackage Plk_Autoload_Check/public/partials
  */
 ?>
 
